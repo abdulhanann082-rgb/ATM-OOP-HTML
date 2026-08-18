@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Transfer | PyBank ATM{% endblock %}
+{% block content %}
+    <h1 class="page-title">Transfer Money</h1>
+    <p class="page-subtitle">A/C No: {{ account.account_number }} &middot; Balance: Rs. {{ "%.2f"|format(account.balance) }}</p>
+
+    <form method="POST" action="{{ url_for('transfer') }}" class="atm-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="receiver_account">Receiver Account Number</label>
+        <input type="text" id="receiver_account" name="receiver_account" required autofocus>
+
+        <label for="amount">Amount (Rs.)</label>
+        <input type="number" id="amount" name="amount" min="1" step="1" required>
+        <p class="hint-text">A Rs. 100 transfer fee applies and will be deducted from your account.</p>
+
+        <button type="submit" class="btn btn-primary">Transfer</button>
+    </form>
+
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
+{% endblock %}

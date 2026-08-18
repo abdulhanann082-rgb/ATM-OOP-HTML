@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | PyBank ATM{% endblock %}
+{% block content %}
+    <h1 class="page-title">ATM Dashboard</h1>
+    <p class="page-subtitle">
+        {{ account.account_type }} Account &middot; A/C No: {{ account.account_number }}
+    </p>
+
+    <div class="dashboard-grid">
+        <a href="{{ url_for('balance') }}" class="dashboard-btn">
+            <span class="icon">💰</span> Check Balance
+        </a>
+        <a href="{{ url_for('deposit') }}" class="dashboard-btn">
+            <span class="icon">📥</span> Deposit
+        </a>
+        <a href="{{ url_for('withdraw') }}" class="dashboard-btn">
+            <span class="icon">📤</span> Withdraw
+        </a>
+        <a href="{{ url_for('transfer') }}" class="dashboard-btn">
+            <span class="icon">🔁</span> Transfer Money
+        </a>
+        <a href="{{ url_for('change_pin') }}" class="dashboard-btn">
+            <span class="icon">🔒</span> Change PIN
+        </a>
+        <a href="{{ url_for('mini_statement') }}" class="dashboard-btn">
+            <span class="icon">🧾</span> Mini Statement
+        </a>
+        <a href="{{ url_for('select_account') }}" class="dashboard-btn">
+            <span class="icon">🔀</span> Switch Account
+        </a>
+        <a href="{{ url_for('logout') }}" class="dashboard-btn dashboard-btn-danger">
+            <span class="icon">🚪</span> Logout
+        </a>
+    </div>
+{% endblock %}

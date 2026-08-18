@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PyBank ATM{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="atm-header">
+        <div class="atm-header-inner">
+            <span class="brand">🏧 PyBank ATM</span>
+            {% if session.get('customer_name') %}
+                <span class="header-user">
+                    {{ session.get('customer_name') }}
+                    <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+                </span>
+            {% endif %}
+        </div>
+    </header>
+
+    <main class="atm-shell">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-container">
+                    {% for category, message in messages %}
+                        <div class="flash flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <div class="atm-card">
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="atm-footer">
+        &copy; {{ 2026 }} PyBank ATM System &mdash; Educational Project
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
