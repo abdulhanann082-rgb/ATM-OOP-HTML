@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Select Account | PyBank ATM{% endblock %}
+{% block content %}
+    <h1 class="page-title">Select Account</h1>
+    <p class="page-subtitle">Choose which account you'd like to use</p>
+
+    <form method="POST" action="{{ url_for('select_account') }}" class="atm-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {% for account in accounts %}
+            <label class="account-option">
+                <input type="radio" name="account_number" value="{{ account.account_number }}" required>
+                <span class="account-option-details">
+                    <strong>{{ account.account_type }} Account</strong><br>
+                    A/C No: {{ account.account_number }}<br>
+                    Balance: Rs. {{ "%.2f"|format(account.balance) }}
+                </span>
+            </label>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Continue</button>
+    </form>
+{% endblock %}

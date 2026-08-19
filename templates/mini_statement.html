@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Mini Statement | PyBank ATM{% endblock %}
+{% block content %}
+    <h1 class="page-title">Mini Statement</h1>
+    <p class="page-subtitle">A/C No: {{ account.account_number }} &middot; Last 5 transactions</p>
+
+    <table class="statement-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Transaction ID</th>
+                <th>Type</th>
+                <th>Amount</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for txn in transactions %}
+            <tr>
+                <td>{{ txn.timestamp.strftime('%d-%b-%Y %H:%M') }}</td>
+                <td>{{ txn.transaction_id }}</td>
+                <td>{{ txn.transaction_type }}</td>
+                <td class="{{ 'amt-positive' if txn.display_amount().startswith('+') else 'amt-negative' }}">
+                    Rs. {{ txn.display_amount() }}
+                </td>
+                <td>{{ txn.status }}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="5">No transactions yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="result-box">
+        <span class="result-label">Current Balance</span>
+        <span class="result-amount">Rs. {{ "%.2f"|format(account.balance) }}</span>
+    </div>
+
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+{% endblock %}

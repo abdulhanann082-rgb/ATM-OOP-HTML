@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Login | PyBank ATM{% endblock %}
+{% block content %}
+    <h1 class="page-title">Insert Card</h1>
+    <p class="page-subtitle">Enter your card number and PIN to continue</p>
+
+    <form method="POST" action="{{ url_for('login') }}" class="atm-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="card_number">Card Number</label>
+        <input type="text" id="card_number" name="card_number" maxlength="16" inputmode="numeric"
+               placeholder="16-digit card number" required autofocus>
+
+        <label for="pin">PIN</label>
+        <input type="password" id="pin" name="pin" maxlength="4" inputmode="numeric"
+               placeholder="4-digit PIN" required>
+
+        <button type="submit" class="btn btn-primary">Enter</button>
+    </form>
+
+    <p class="hint-text">Demo credentials are listed in README.md</p>
+{% endblock %}
